@@ -18,7 +18,11 @@
 
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosModules.default = { pkgs, ... }: {
-      environment.systemPackages = [ pkgs.git ];
+      environment.systemPackages = [
+        # General tooling
+        pkgs.git
+        pkgs.nixfmt
+      ];
     };
 
     # Module for 13-inch Ryzen 7040 framework hardware quirks
