@@ -29,6 +29,11 @@
       let
         fwupd-old =
           (import inputs.nixpkgs-old-fwupd { system = pkgs.system; }).fwupd;
+
+        awsudo = pkgs.writeShellScriptBin "awsudo" ''
+          exec ${pkgs.aws-vault}/bin/aws-vault exec \
+            --duration="''${SUDO_DURATION:-1h}" "''${SUDO_ROLE:-sudo}" -- "$@"
+        '';
       in {
 
         # Default settings
@@ -71,12 +76,28 @@
           pulse.enable = true;
         };
 
-        environment.systemPackages = [
+        environment.systemPackages = with pkgs; [
           # General tooling
-          pkgs.git
-          pkgs.nixfmt
-          pkgs.vim # I mean, it's better than nano
+          git
+          vim # I mean, it's better than nano
+
+          # Nix related tools
+          nixfmt
+          niv
+          nix-tree
+          comma
+
+          # AWS related tooling
+          awscli2
+          aws-vault
+          awsudo
         ];
+
+        # We use tailscale!
+        services.tailscale = {
+          enable = true;
+          useRoutingFeatures = "client";
+        };
       };
 
     # Module for 13-inch Ryzen 7040 framework hardware quirks
