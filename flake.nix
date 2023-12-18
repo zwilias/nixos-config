@@ -11,11 +11,18 @@
       # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Hardware quirks
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosModules.default = { pkgs, ... }: {
       environment.systemPackages = [ pkgs.git ];
     };
+
+    # Module for 13-inch Ryzen 7040 framework hardware quirks
+    nixosModules.framework-13-7040-amd =
+      inputs.nixos-hardware.nixosModules.framework-13-7040-amd;
   };
 }
