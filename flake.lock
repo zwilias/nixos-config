@@ -53,11 +53,28 @@
         "type": "github"
       }
     },
+    "nixpkgs-old-fwupd": {
+      "locked": {
+        "lastModified": 1699347360,
+        "narHash": "sha256-0tctq4OmtuRRQkeUg94JJ9UvQOD0kxYYFyUn5oSqvp0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a845c1b2d62614f80de711d7cecbd0688c53429e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a845c1b2d62614f80de711d7cecbd0688c53429e",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-old-fwupd": "nixpkgs-old-fwupd"
       }
     }
   },
