@@ -25,21 +25,51 @@
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
-    nixosModules.default = { pkgs, ... }:
+    nixosModules.default = { lib, pkgs, ... }:
       let
         fwupd-old =
           (import inputs.nixpkgs-old-fwupd { system = pkgs.system; }).fwupd;
       in {
+
         # Default settings
         boot.loader.systemd-boot.enable = true;
         boot.loader.efi.canTouchEfiVariables = true;
         networking.networkmanager.enable = true;
 
-        # Enable firmware upgrade and fingerprint services
-        services.fwupd.enable = true;
-        services.fwupd.package = fwupd-old;
+        # Bit of an assumption, but overridable
+        i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
 
+        # Enable firmware upgrade and fingerprint services
+        services.fwupd = {
+          enable = true;
+          package = fwupd-old;
+        };
         services.fprintd.enable = true;
+
+        # We want graphics!
+        services.xserver = {
+          enable = true;
+          layout = lib.mkDefault "us";
+          xkbVariant = lib.mkDefault "";
+        };
+
+        # Setup gnome, may want to make this configurable
+        services.xserver.displayManager.gdm.enable = true;
+        services.xserver.desktopManager.gnome.enable = true;
+
+        # Printing is always nice
+        services.printing.enable = true;
+
+        # Sound, too
+        sound.enable = true;
+        hardware.pulseaudio.enable = false;
+        security.rtkit.enable = true;
+        services.pipewire = {
+          enable = true;
+          alsa.enable = true;
+          alsa.support32Bit = true;
+          pulse.enable = true;
+        };
 
         environment.systemPackages = [
           # General tooling
