@@ -86,6 +86,7 @@
           niv
           nix-tree
           comma
+          cachix
 
           # AWS related tooling
           awscli2
