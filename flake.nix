@@ -35,7 +35,6 @@
             --duration="''${SUDO_DURATION:-1h}" "''${SUDO_ROLE:-sudo}" -- "$@"
         '';
       in {
-
         # Default settings
         boot.loader.systemd-boot.enable = true;
         boot.loader.efi.canTouchEfiVariables = true;
@@ -98,6 +97,13 @@
         services.tailscale = {
           enable = true;
           useRoutingFeatures = "client";
+        };
+
+        nix.settings = {
+          experimental-features = [ "nix-command" "flakes" ];
+          substituters = [ "https://cache.nixos.org" "https://nri.cachix.org" ];
+          trusted-public-keys =
+            [ "nri.cachix.org-1:9/BMj3Obc+uio3O5rYGT+egHzkBzDunAzlZZfhCGj6o=" ];
         };
       };
 
