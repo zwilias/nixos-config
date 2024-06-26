@@ -2,7 +2,7 @@
   description = "Base nixos configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     # To successfully flash the firmware of the onboard fingerprint reader on
     # Ryzen 7040 framework laptops, we need version 1.9.7 of fwupd. See
@@ -12,7 +12,7 @@
       "github:NixOS/nixpkgs/a845c1b2d62614f80de711d7cecbd0688c53429e";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       # The `follows` keyword in inputs is used for inheritance.
       # Here, `inputs.nixpkgs` of home-manager is kept consistent with
       # the `inputs.nixpkgs` of the current flake,
