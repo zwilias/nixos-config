@@ -57,6 +57,7 @@
           enable = true;
           layout = lib.mkDefault "us";
           xkbVariant = lib.mkDefault "";
+          videoDrivers = [ "amdgpu" ];
         };
 
         # Setup gnome, may want to make this configurable
