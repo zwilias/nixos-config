@@ -60,6 +60,9 @@
           videoDrivers = [ "amdgpu" ];
         };
 
+        # Try the amdvlk driver
+        hardware.opengl.extraPackages = [ pkgs.amdvlk ];
+
         # Setup gnome, may want to make this configurable
         services.xserver.displayManager.gdm.enable = true;
         services.xserver.desktopManager.gnome.enable = true;
